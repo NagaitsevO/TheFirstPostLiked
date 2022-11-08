@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсива по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия - помочь встать на путь роста и начать цепочку перемен -> http://netolo.gy/fyb",
             published = "21 мая в 18:36",
             likes = 999999,
-            shared = 20,
+            shared = 990,
             views = 3000,
             likedByMe = false
         )
@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity() {
         textViewAuthor.text = post.author
         textViewContent.text = post.content
         textViewDate.text = post.published
-        textViewReposts.setText(ToCutTheNumber(post.shared))
-        textViewViews.setText(ToCutTheNumber(post.views))
+        textViewReposts.text = toCutTheNumber(post.shared)
+        textViewViews.text = toCutTheNumber(post.views)
 
         var likes: TextView = findViewById<TextView>(R.id.textViewLikes)
-        likes.setText(ToCutTheNumber(post.likes))
+        likes.text = toCutTheNumber(post.likes)
 
         imageViewLikes.setOnClickListener() {
             imageViewLikes.setImageResource(
@@ -49,7 +49,14 @@ class MainActivity : AppCompatActivity() {
                 }
             )
             post.likedByMe = !post.likedByMe
-            likes.setText(ToCutTheNumber(post.likes))
+            likes.text = toCutTheNumber(post.likes)
+        }
+
+        imageViewReposts.setOnClickListener() {
+            post.shared++
+            if (post.shared % 10 == 0) {
+                textViewReposts.text = toCutTheNumber(post.shared)
+            }
         }
 
     }

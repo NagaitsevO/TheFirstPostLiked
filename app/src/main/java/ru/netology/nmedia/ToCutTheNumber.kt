@@ -1,6 +1,6 @@
 package ru.netology.nmedia
 
-fun ToCutTheNumber (incomingNumber: Int): String {
+fun toCutTheNumber (incomingNumber: Int): String {
     var numberOut: String = ""
 
     if (incomingNumber < 1000) {
