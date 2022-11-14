@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,38 +25,38 @@ class MainActivity : AppCompatActivity() {
             likedByMe = false
         )
 
-        imageViewAvatar.setImageResource(R.drawable.ic_launcher_foreground)
-        textViewAuthor.text = post.author
-        textViewContent.text = post.content
-        textViewDate.text = post.published
-        textViewReposts.text = toCutTheNumber(post.shared)
-        textViewViews.text = toCutTheNumber(post.views)
+        with(binding) {
+            imageViewAvatar.setImageResource(R.drawable.ic_launcher_foreground)
+            textViewAuthor.text = post.author
+            textViewContent.text = post.content
+            textViewDate.text = post.published
+            textViewReposts.text = toCutTheNumber(post.shared)
+            textViewViews.text = toCutTheNumber(post.views)
+            textViewLikes.text = toCutTheNumber(post.likes)
+            if (post.likedByMe) {
+                imageViewLikes?.setImageResource(R.drawable.ic_baseline_favorite_24)
+            }
+            imageViewLikes?.setOnClickListener() {
+                imageViewLikes.setImageResource(
+                    if (!post.likedByMe) {
+                        post.likes++
+                        R.drawable.ic_baseline_favorite_24
+                    }
 
-        var likes: TextView = findViewById<TextView>(R.id.textViewLikes)
-        likes.text = toCutTheNumber(post.likes)
-
-        imageViewLikes.setOnClickListener() {
-            imageViewLikes.setImageResource(
-                if (!post.likedByMe) {
-                    post.likes++
-                    R.drawable.ic_baseline_favorite_24
+                    else {
+                        post.likes--
+                        R.drawable.ic_twotone_favorite_border_24
+                    }
+                )
+                post.likedByMe = !post.likedByMe
+                textViewLikes.text = toCutTheNumber(post.likes)
+            }
+            imageViewReposts.setOnClickListener() {
+                post.shared++
+                if (post.shared % 10 == 0) {
+                    textViewReposts.text = toCutTheNumber(post.shared)
                 }
-
-                else {
-                    post.likes--
-                    R.drawable.ic_twotone_favorite_border_24
-                }
-            )
-            post.likedByMe = !post.likedByMe
-            likes.text = toCutTheNumber(post.likes)
-        }
-
-        imageViewReposts.setOnClickListener() {
-            post.shared++
-            if (post.shared % 10 == 0) {
-                textViewReposts.text = toCutTheNumber(post.shared)
             }
         }
-
     }
 }
