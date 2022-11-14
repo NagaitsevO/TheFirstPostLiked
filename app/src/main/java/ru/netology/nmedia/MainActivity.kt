@@ -53,9 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
             imageViewReposts.setOnClickListener() {
                 post.shared++
-                if (post.shared % 10 == 0) {
-                    textViewReposts.text = toCutTheNumber(post.shared)
-                }
+                textViewReposts.text = toCutTheNumber(post.shared)
             }
         }
     }
